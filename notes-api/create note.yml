@@ -1,0 +1,29 @@
+info:
+  name: create note
+  type: http
+  seq: 5
+
+http:
+  method: POST
+  url: http://localhost:3000/notes?title=bruno test&content=hello from bruno
+  params:
+    - name: title
+      value: bruno test
+      type: query
+    - name: content
+      value: hello from bruno
+      type: query
+  body:
+    type: json
+    data: |-
+      {
+        "title": "bruno test",
+        "content": "Hello From Bruno"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

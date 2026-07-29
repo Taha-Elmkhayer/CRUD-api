@@ -1,0 +1,29 @@
+info:
+  name: update note
+  type: http
+  seq: 7
+
+http:
+  method: PUT
+  url: http://localhost:3000/notes/1?title=update note&content=updated note from bruno
+  params:
+    - name: title
+      value: update note
+      type: query
+    - name: content
+      value: updated note from bruno
+      type: query
+  body:
+    type: json
+    data: |-
+      {
+        "title": "updated note",
+        "content": "updated from bruno"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
