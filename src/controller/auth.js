@@ -3,7 +3,7 @@ import prisma from "../lib/prisma.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export async function registerUser(req, res) {
+export async function registerUser(req, res, next) {
   const validation = registerSchema.safeParse(req.body);
 
   if (!validation.success) {
@@ -33,12 +33,11 @@ export async function registerUser(req, res) {
       createdAt: new_user.createdAt,
     });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Internal Server Error" });
+    next(error);
   }
 }
 
-export async function loginUser(req, res) {
+export async function loginUser(req, res, next) {
   const validation = loginSchema.safeParse(req.body);
 
   if (!validation.success) {
@@ -67,7 +66,6 @@ export async function loginUser(req, res) {
     );
     return res.status(200).json({ token });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Internal Server Error" });
+    next(error);
   }
 }

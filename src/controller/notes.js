@@ -1,17 +1,16 @@
 import prisma from "../lib/prisma.js";
 import { noteSchema } from "../validators/note.js";
 
-export async function getAllNotes(req, res) {
+export async function getAllNotes(req, res, next) {
   try {
     const notes = await prisma.note.findMany({ where: { userId: req.userId } });
     return res.json(notes);
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Internal Server error" });
+    next(error);
   }
 }
 
-export async function getNote(req, res) {
+export async function getNote(req, res, next) {
   let note_id = parseInt(req.params.id);
 
   if (isNaN(note_id)) {
@@ -28,12 +27,11 @@ export async function getNote(req, res) {
     }
     return res.json({ note: noteObj });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Internal Server error" });
+    next(error);
   }
 }
 
-export async function createNote(req, res) {
+export async function createNote(req, res, next) {
   const validation = noteSchema.safeParse(req.body);
 
   if (!validation.success) {
@@ -48,12 +46,11 @@ export async function createNote(req, res) {
     });
     return res.status(201).json({ note });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Internal Server error" });
+    next(error);
   }
 }
 
-export async function updateNote(req, res) {
+export async function updateNote(req, res, next) {
   const validation = noteSchema.safeParse(req.body);
 
   if (!validation.success) {
@@ -78,12 +75,11 @@ export async function updateNote(req, res) {
     if (error.code === "P2025") {
       return res.status(404).json({ erorr: "Record not Found" });
     }
-    console.error(error);
-    return res.status(500).json({ error: "Internal Server error" });
+    next(error);
   }
 }
 
-export async function deleteNote(req, res) {
+export async function deleteNote(req, res, next) {
   const id = parseInt(req.params.id);
 
   if (isNaN(id)) {
@@ -96,10 +92,6 @@ export async function deleteNote(req, res) {
     });
     return res.status(204).send();
   } catch (error) {
-    if (error.code === "P2025") {
-      return res.status(404).json({ erorr: "Record not Found" });
-    }
-    console.error(error);
-    return res.status(500).json({ error: "Internal Server error" });
+    next(error);
   }
 }
