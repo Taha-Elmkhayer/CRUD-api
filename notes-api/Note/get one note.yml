@@ -5,8 +5,10 @@ info:
 
 http:
   method: GET
-  url: http://localhost:3000/notes/1
-  auth: inherit
+  url: http://localhost:3000/notes/3
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc4NTQyOTUzNiwiZXhwIjoxNzg2MDM0MzM2fQ.eXSJ8QNPkeYW1kcQBcL3kMASkp6ZjaUY3Iw1Aag3vts
 
 settings:
   encodeUrl: true
