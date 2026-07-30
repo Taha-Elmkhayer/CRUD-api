@@ -1,5 +1,7 @@
 import "dotenv/config";
 import express from "express";
+import morgan from "morgan";
+
 import notesRouter from "./routes/notes.js";
 import authRouter from "./routes/auth.js";
 import authMidlleware from "./middleware/auth.js";
@@ -8,6 +10,8 @@ import errorHandler from "./middleware/errorHandler.js";
 const PORT = process.env.PORT;
 
 const app = express();
+
+app.use(morgan("dev"));
 
 app.use(express.json());
 
