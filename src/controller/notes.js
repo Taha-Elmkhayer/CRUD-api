@@ -3,7 +3,7 @@ import { noteSchema } from "../validators/note.js";
 
 export async function getAllNotes(req, res) {
   try {
-    const notes = await prisma.note.findMany();
+    const notes = await prisma.note.findMany({ where: { userId: req.userId } });
     return res.json(notes);
   } catch (error) {
     console.error(error);
@@ -19,7 +19,9 @@ export async function getNote(req, res) {
   }
 
   try {
-    let noteObj = await prisma.note.findUnique({ where: { id: note_id } });
+    let noteObj = await prisma.note.findUnique({
+      where: { id: note_id, userId: req.userId },
+    });
 
     if (!noteObj) {
       return res.status(404).json({ Error: "Note not found " });
@@ -42,9 +44,9 @@ export async function createNote(req, res) {
 
   try {
     const note = await prisma.note.create({
-      data: { title, content },
+      data: { title, content, userId: req.userId },
     });
-    return res.json({ note });
+    return res.status(201).json({ note });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server error" });
@@ -68,7 +70,7 @@ export async function updateNote(req, res) {
 
   try {
     const updated_note = await prisma.note.update({
-      where: { id },
+      where: { id, userId: req.userId },
       data: { title, content },
     });
     return res.status(200).json({ updated_note });
@@ -90,7 +92,7 @@ export async function deleteNote(req, res) {
 
   try {
     const deleted_note = await prisma.note.delete({
-      where: { id },
+      where: { id, userId: req.userId },
     });
     return res.status(204).send();
   } catch (error) {
