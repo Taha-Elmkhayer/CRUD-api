@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import notesRouter from "./routes/notes.js";
+import authRouter from "./routes/auth.js";
 
 const PORT = process.env.PORT;
 
@@ -14,6 +15,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/notes", notesRouter);
+
+app.use("/auth", authRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is listening on http://localhost:${PORT}`);
