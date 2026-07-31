@@ -7,15 +7,24 @@ http:
   method: POST
   url: http://localhost:3000/notes
   body:
-    type: json
-    data: |-
-      {
-        "title": "authorization",
-        "content": "it good to have a authorization system for any app cause it keep each user out of other user space"
-      }
+    type: multipart-form
+    data:
+      - name: image
+        type: file
+        value:
+          - /home/tae/Pictures/teaImage.png
+        contentType: image/png
+      - name: title
+        type: text
+        value: image
+        contentType: text
+      - name: content
+        type: text
+        value: "image upload "
+        contentType: text
   auth:
     type: bearer
-    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc4NTQzMTk2NywiZXhwIjoxNzg2MDM2NzY3fQ.Vvhfj_Sm_PyJyhVzFhqUcoyTKTK2P3GTOUMFHcciEUU
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc4NTUwMTExMiwiZXhwIjoxNzg2MTA1OTEyfQ.Pw6Q6ZPOgwGtxSrCIduxPXmvOtVN23cVsohi-nxzXfo
 
 settings:
   encodeUrl: true

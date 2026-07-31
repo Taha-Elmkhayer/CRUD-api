@@ -4,7 +4,7 @@ export default function authMidlleware(req, res, next) {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ error: "no authorozed token found" });
+    return res.status(401).json({ error: "no authorized token found" });
   }
 
   const token = authHeader.split(" ")[1];
@@ -16,6 +16,6 @@ export default function authMidlleware(req, res, next) {
 
     next();
   } catch (err) {
-    res.status(401).json({ error: "invalide or Expired Token" });
+    res.status(401).json({ error: "invalid or Expired Token" });
   }
 }

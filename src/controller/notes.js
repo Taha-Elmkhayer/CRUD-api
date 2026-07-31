@@ -74,10 +74,11 @@ export async function createNote(req, res, next) {
   }
 
   const { title, content } = validation.data;
+  const image = req.file ? req.file.path : null;
 
   try {
     const note = await prisma.note.create({
-      data: { title, content, userId: req.userId },
+      data: { title, content, userId: req.userId, image },
     });
     return res.status(201).json({ note });
   } catch (error) {

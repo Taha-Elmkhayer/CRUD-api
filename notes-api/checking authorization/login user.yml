@@ -10,12 +10,12 @@ http:
     type: json
     data: |-
       {
-        "email": "that.guy@gmail.com",
-        "password": "thatguy"
+        "email": "penitent@one.com",
+        "password": "penitent one"
       }
   auth:
     type: bearer
-    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc4NTQ1OTIzMCwiZXhwIjoxNzg2MDY0MDMwfQ.o0JsjmHmgSzaStAAYGaFIMMuvLIXOsJXxjRGi1Hxtic
+    token: ""
 
 settings:
   encodeUrl: true

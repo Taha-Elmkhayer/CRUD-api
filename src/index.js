@@ -42,6 +42,8 @@ app.use("/auth", authLimiter, authRouter);
 
 app.use("/admin", authMidlleware, adminRouter);
 
+app.use("/uploads", express.static("uploads"));
+
 app.use(errorHandler);
 
 app.listen(PORT, () => {
