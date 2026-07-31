@@ -6,7 +6,9 @@ info:
 http:
   method: GET
   url: http://localhost:3000/admin/notes
-  auth: inherit
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc4NTQ1OTIzMCwiZXhwIjoxNzg2MDY0MDMwfQ.o0JsjmHmgSzaStAAYGaFIMMuvLIXOsJXxjRGi1Hxtic
 
 settings:
   encodeUrl: true
