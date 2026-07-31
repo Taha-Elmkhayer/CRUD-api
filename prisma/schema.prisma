@@ -27,5 +27,6 @@ model User {
   email     String   @unique
   password  String
   note      Note[]
+  role      String   @default("user")
   createdAt DateTime @default(now())
 }

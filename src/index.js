@@ -5,6 +5,7 @@ import rateLimit from "express-rate-limit";
 
 import notesRouter from "./routes/notes.js";
 import authRouter from "./routes/auth.js";
+import adminRouter from "./routes/admin.js";
 import authMidlleware from "./middleware/auth.js";
 import errorHandler from "./middleware/errorHandler.js";
 
@@ -38,6 +39,8 @@ app.get("/", (req, res) => {
 app.use("/notes", authMidlleware, notesRouter);
 
 app.use("/auth", authLimiter, authRouter);
+
+app.use("/admin", authMidlleware, adminRouter);
 
 app.use(errorHandler);
 
