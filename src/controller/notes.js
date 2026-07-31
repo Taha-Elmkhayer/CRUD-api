@@ -7,12 +7,21 @@ export async function getAllNotes(req, res, next) {
     const limit = parseInt(req.query.limit) || 10;
     const sort = req.query.sort || "createdAt";
     const order = req.query.order || "desc";
+    const search = req.query.search;
 
     const skip = (page - 1) * limit;
 
     const [notes, total] = await Promise.all([
       prisma.note.findMany({
-        where: { userId: req.userId },
+        where: {
+          userId: req.userId,
+          ...(search && {
+            OR: [
+              { title: { contains: search, mode: "insensitive" } },
+              { content: { contains: search, mode: "insensitive" } },
+            ],
+          }),
+        },
         take: limit,
         skip,
         orderBy: {
